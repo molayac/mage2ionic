@@ -1,0 +1,22 @@
+
+<ion-menu [content]="content">
+  <ion-content>
+   <img src="./assets/images/cover.jpg" alt="">
+    <ion-list>
+      <button color="dark" ion-item *ngFor="let page of pages" (click)="goToPage(page.component)" menuClose>
+        <ion-icon name="{{page.icon}}" item-left></ion-icon>
+        {{page.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-fab bottom left>
+    <button ion-fab color="dark" mini><ion-icon name="logo-whatsapp"></ion-icon></button>
+    <ion-fab-list side="left">
+      <button ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+    </ion-fab-list>
+  </ion-fab>
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>
