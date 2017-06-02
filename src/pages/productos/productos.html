@@ -28,9 +28,21 @@
       <ion-thumbnail item-left>
         <img src="{{catalog.imagen}}">
       </ion-thumbnail>
-      <h2>{{catalog.title}}</h2>
+      <h2>{{catalog.name}}</h2>
       <p>{{catalog.description}}</p>
-      <ion-badge>{{catalog.counter}}</ion-badge>
+      <ion-badge color="danger">{{catalog.product_count}}</ion-badge>
     </ion-list-header>
+  <ion-item *ngFor="let product of products">
+    <ion-avatar item-left>
+      <img src="./assets/images/thumbnail.jpg">
+    </ion-avatar>
+    <h2>{{product.name}}</h2>
+    <p>Precio: ${{product.price}} <small>COP</small></p>
+    <p>Descripción: {{product.custom_attributes[0].value}}</p>
+    <p><small>REF:{{product.sku}}</small></p>
+    <button ion-button item-right color="danger" [navPush]="productPage" [navParams]="product">
+      <ion-icon name="cart"></ion-icon>
+    </button>
+  </ion-item>
   </ion-list>
 </ion-content>
