@@ -43,9 +43,10 @@
     <button ion-item clear *ngFor="let catalog of categories" [navPush]="catalogPage" [navParams]="catalog">
       <ion-thumbnail item-left>
         <img src="{{catalog.imagen}}">
+        <ion-badge color="dark">{{catalog.product_count}}</ion-badge>
       </ion-thumbnail>
-      <h2>{{catalog.title}}</h2>
-      <p>{{catalog.description}}</p>
+      <h2>{{catalog.name}}</h2>
+      <p> {{catalog.description}}</p>
       <ion-icon name="{{catalog.icon}}" item-right color="danger"></ion-icon>
     </button>
 
