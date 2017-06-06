@@ -17,8 +17,6 @@ import { ProductosPage } from './../pages/productos/productos';
 import { ProductoPage } from './../pages/producto/producto';
 import { Magento2ServiceProvider } from '../providers/magento2-service/magento2-service';
 
-
-
 @NgModule({
   declarations: [
     MyApp,
