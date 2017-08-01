@@ -10,7 +10,7 @@ import { AyudaPage } from '../pages/ayuda/ayuda';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class SurtyApp {
   @ViewChild("content") content: Nav;
   
   public rootPage: any;

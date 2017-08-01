@@ -1,3 +1,6 @@
+import { TerminosPage } from './../pages/terminos/terminos';
+import { RegistroPage } from './../pages/registro/registro';
+import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -7,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { EmailComposer } from '@ionic-native/email-composer';
 
-import { MyApp } from './app.component';
+import { SurtyApp } from './app.component';
 import { InicioPage } from '../pages/inicio/inicio';
 import { AyudaPage } from './../pages/ayuda/ayuda';
 import { ContactoPage } from './../pages/contacto/contacto';
@@ -19,37 +22,43 @@ import { Magento2ServiceProvider } from '../providers/magento2-service/magento2-
 
 @NgModule({
   declarations: [
-    MyApp,
+    SurtyApp,
     InicioPage,
     ContactoPage,
     AyudaPage,
     CuentaPage,
     ProductosPage,
     CarritoPage,
-    ProductoPage
+    ProductoPage,
+    LoginPage,
+    RegistroPage,
+    TerminosPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(SurtyApp)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    SurtyApp,
     InicioPage,
     ContactoPage,
     AyudaPage,
     CuentaPage,
     ProductosPage,
     CarritoPage,
-    ProductoPage
+    ProductoPage,
+    LoginPage,
+    RegistroPage,
+    TerminosPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     EmailComposer,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     Magento2ServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

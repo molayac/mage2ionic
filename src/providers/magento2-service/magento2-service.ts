@@ -3,7 +3,6 @@ import { Mg2Customer } from './../../models/mg2-customer';
 import { Mg2Search } from './../../models/mg2-search';
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import { Magento2SearchCriteria } from './magento2-search-criteria';
 import 'rxjs/add/operator/map';
 
 /*
@@ -21,20 +20,77 @@ export class Magento2ServiceProvider {
     name: string, imagen: string, icon: string,
     product_count: string, description: string
   }>;
+  private token: any;
   private mg2Products: Array<{ catalog: any, products: Array<any> }>;
 
   public headers: any = new Headers({ 'Content-Type': 'application/json' });
 
   constructor(public http: Http) {
-    this.magentoAPI = "http://http://13.56.49.79/rest/V1/"; // Used for app builder
+    this.magentoAPI = "http:/magento.docker.local/rest/V1/"; // Used for app builder
     this.magentoAPI = "/magentoAPI/";
     this.mg2Catalog = [];
     this.mg2Products = [];
+    this.token = null;
     console.log('Hello Magento2ServiceProvider Provider');
   }
+
+  customerInfoService() {
+    let headers = this.headers;
+    headers.append('Authorization', "Bearer " + this.token);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(this.magentoAPI + "customers/me", options)
+      .map(response => response.json());
+    // .subscribe(data => {console.log(data, "STRING: ", JSON.stringify(data));});
+
+  }
+
+  registerNewCustomer(token, request) {
+    let headers = this.headers;
+    headers.append('Authorization', "Bearer " + token);
+    let options = new RequestOptions({ headers: headers });
+    let data = {
+      customer : {
+        email: request.email,
+        firstname: request.name,
+        lastname: request.lastnames,
+        gender: ()=>{switch(request.gender){ case "male": return 1; case "female": return 2; default : return 0;}}
+      },password: request.pwd
+    }
+    console.log(JSON.stringify(data));
+    return this.http.post(this.magentoAPI + "customers", data,options)
+      .map(response => response.json());
+
+  }
+
+  adminServiceToken() {
+    let options = new RequestOptions({ headers: this.headers });
+    let credentials = new Mg2Customer("user", "bitnami1");
+    return this.http.post(this.magentoAPI + "integration/admin/token",
+      credentials.getLoginParams()).map(response => response.json());
+
+  }
+
+  loginService(data) {
+    let options = new RequestOptions({ headers: this.headers });
+    this.mg2Customer = new Mg2Customer(data.usr, data.pwd);
+    return this.http.post(this.magentoAPI + "integration/customer/token",
+      this.mg2Customer.getLoginParams()).map(response => response.json());
+    // .subscribe(data => { console.log(data, "STRING:", JSON.stringify("data")) });
+
+  }
+
+  activateCustomerService(token, email, key) {
+    let headers = this.headers;
+    headers.append('Authorization', "Bearer " + token);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(this.magentoAPI + "customers/" + email + "/activate",
+      { confirmationKey: key }, options)
+      .map(response => response.json());
+
+  }
+
   getCategories() {
     let options = new RequestOptions({ headers: this.headers });
-    this.headers.append('Content-Type', 'application/json');
     return this.http.get(this.magentoAPI + "categories", options)
       .map(response => response.json());
     // .subscribe(data => {
@@ -58,22 +114,32 @@ export class Magento2ServiceProvider {
       .map(response => response.json());
   }
 
-  /* GETTERS AND SETTERS*/  
-  
+  /* GETTERS AND SETTERS*/
   setMg2Products(catalog, products) {
     this.mg2Products.push({ catalog: catalog, products: products });
   }
 
-  getMg2Products(){
+  getMg2Products() {
     return this.mg2Products;
   }
 
   setMg2Catalog(items) {
     this.mg2Catalog = items;
   }
+
   getMg2Catalog() {
     return this.mg2Catalog;
   }
+
+  getToken() {
+    return this.token;
+  }
+  setToken(token) {
+    this.mg2Customer.setToken(token);
+    this.token = token;
+    console.log("TOKEN Updated", token);
+  }
+
 
 
 

@@ -27,7 +27,9 @@ export class ContactoPage {
   public enabledEmail: boolean = false;
   public contactForm: FormGroup;
 
-  constructor(public alertCtrl: AlertController, private formBuilder: FormBuilder, private emailComposer: EmailComposer, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, private formBuilder: FormBuilder,
+    private emailComposer: EmailComposer, public navCtrl: NavController,
+    public navParams: NavParams) {
     this.contactForm = this.formBuilder.group({
       name: ['', Validators.required],
       subject: ['', Validators.required],
@@ -49,7 +51,7 @@ export class ContactoPage {
   goToCart() {
     this.navCtrl.setRoot(CarritoPage);
   }
-  
+
   sendMail(formData) {
     let email = {
       app: 'gmail',
