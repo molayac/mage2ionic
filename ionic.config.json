@@ -5,7 +5,7 @@
   "proxies": [
     {
       "path": "/magentoAPI",
-      "proxyUrl": "http://13.56.49.79/rest/V1/"
+      "proxyUrl": "http://magento.docker.local/rest/V1/"
     }
   ]
 }
