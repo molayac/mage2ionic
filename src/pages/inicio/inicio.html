@@ -13,10 +13,15 @@
     </button>
 
     <ion-title>Inicio</ion-title>
+    
     <ion-buttons end>
+      <button ion-button ion-item-left color="light" [navPush]="loginPage">
+        <ion-icon name="contact"></ion-icon>
+      </button>
       <button ion-button item-rigth color="light" [navPush]="cartPage">
         <ion-icon name="cart"><ion-badge id="badge-me" color="danger">2</ion-badge></ion-icon>
       </button>
+      
     </ion-buttons>
 
   </ion-navbar>

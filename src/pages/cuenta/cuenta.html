@@ -4,22 +4,50 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-navbar color="dark">
-    
+<ion-header>
+  <ion-navbar color="dark">
+
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    
+
     <ion-title>Mi Cuenta</ion-title>
     <ion-buttons end>
-      <button ion-button item-rigth color="light" (click)="goToPage(0)">
+      <button ion-button item-rigth color="light" [navPush]="cartPage">
         <ion-icon name="cart"><ion-badge id="badge-me" color="danger">2</ion-badge></ion-icon>
       </button>
     </ion-buttons>
 
   </ion-navbar>
-
+</ion-header>
 
 <ion-content padding>
+  <h1>Perfil</h1>
+  <ion-card>
+    <ion-card-header>
+      {{customer.firstname}} {{customer.lastname}}
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Correo: <strong>{{customer.email}}</strong></h2>
+      <h3>Fecha Creación: <strong>{{customer.created_at}}</strong></h3>
+    </ion-card-content>
+
+  </ion-card>
+
+  <h1>Direcciones</h1>
+  <ion-card *ngFor="let address of customer.addresses">
+    <ion-card-header text-capitalize>
+      <div *ngFor="let street of address.street">
+        <h2 ion-label outline color="dark">Dirección: {{street}}</h2>
+      </div>
+    </ion-card-header>
+    <ion-card-content>
+      <h2>Titular: {{address.firstname}} {{address.lastname}}</h2>
+      <h2>Empresa: <strong>{{address.company}}</strong></h2>
+      <h2>Teléfono: <strong>{{address.phone}}</strong></h2>
+      <h2 *ngIf="address.default_shipping" >Dirección por defecto</h2>
+    </ion-card-content>
+
+  </ion-card>
 
 </ion-content>
